@@ -8,9 +8,15 @@ const mapStateToProps = (state) => ({
     state: state,
 });
 
+const Data = (data) => {
+    console.log('data in Data: ', data);
+    return (
+        <Text>{data}</Text>
+    )
+}
 class Status extends Component {
     handlePress() {
-        console.log('this.props; ', this.props);
+        console.log(this.state);
         console.log('postinfo from post: ', this.props.postInfo.counter.data);
     }
     componentWillMount() {
@@ -20,8 +26,14 @@ class Status extends Component {
         return (
             <View>
                 <TouchableOpacity onPress={() => this.handlePress()}>
-                    <Text>Status Goes Here</Text>
+                    <Text>Refresh Statuses</Text>
+                    <Text>{this.state.postInfo.destination}</Text>
                 </TouchableOpacity>
+                <View>
+                    {/* {this.props.postInfo.counter.data.map((datum) => {
+                        <Data key={datum.id} {...datum}/>
+                    })} */}
+                </View>
             </View>
         );
     }
