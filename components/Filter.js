@@ -16,9 +16,7 @@ class Filter extends Component {
     }
 
     handlePress() {
-        // console.log('this dot props: ', this.props);
-        console.log('DATA YO: ', this.props);
-        this.props.dispatch(filterSelected(this.props.updatedFilter));
+        this.props.dispatch(filterSelected(this.props.state.updatedFilter));
     }
     handleChange(text, field) {
         if (!this.filter[field]) {
@@ -31,8 +29,6 @@ class Filter extends Component {
         this.props.dispatch(filterChanged(this.filter));
     }
     render() {
-        console.log('made it here');
-        console.log(this.props);
         if (!this.props.state.updatedFilter) {
             return (
                 <View>
@@ -53,8 +49,31 @@ class Filter extends Component {
                 </View>
             )
         } else {
+            console.log('this.state: ', this.props);
+            let pulled = [];
+            let k = 0;
+            for (let datum of this.props.state.state.data) {
+                let format = datum.location.split(' ');
+                format = format.join('-');
+                format = format.toLowerCase();
+                console.log('format: ', format);
+                if (this.state.location === format) {
+                    datum.k = k;
+                    pulled.push(datum);
+                }
+                k++;
+            }
+            // if (this.state.location === )
             return (
-                <Text>Selected filter: {this.props.state.updatedFilter}</Text>
+                <View>
+                {pulled.map(info => 
+                    <View key={info.k}>
+                        <Text>{info.date}</Text>
+                        <Text>{info.time}</Text>
+                        <Text>{info.destination}</Text>
+                    </View>
+                )}
+                </View>
             );
         }
 

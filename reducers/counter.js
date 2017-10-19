@@ -62,7 +62,7 @@ export const filterChanged = (data) => {
 };
 
 export const filterSelected = (data) => {
-    console.log('dataaaaaaaaa: ', data);
+    console.log('dataaaaaaaaa issue: ', data);
     return (dispatch) => {
         dispatch(selectFilter(data));
     }
