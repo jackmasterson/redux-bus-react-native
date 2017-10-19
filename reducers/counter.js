@@ -56,7 +56,6 @@ export const inputChange = (data) => {
 };
 
 export const filterChanged = (data) => {
-    console.log('data: ', data);
     return (dispatch) => {
         dispatch(changeFilter(data));
     }

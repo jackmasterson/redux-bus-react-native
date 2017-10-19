@@ -45,7 +45,6 @@ class Post extends Component {
             this.postInfo.date = moment(this.postInfo.date).format('MM/DD/YY');
         }
         this.props.dispatch(submitPost(this.postInfo));
-        // Actions.busStatus();
     }
     render() {
         const {dispatch} = this.props;

@@ -5,7 +5,8 @@ import {connect} from 'react-redux';
 import Data from './Data';
 
 const mapStateToProps = (state) => ({
-    state: state.counter.state
+    state: state.counter.state,
+    filter: state.counter
 });
 
 class Filter extends Component {
@@ -17,7 +18,7 @@ class Filter extends Component {
     }
 
     handleSubmit() {
-        this.props.dispatch(filterSelected(this.props.state.updatedFilter));
+        this.props.dispatch(filterSelected(this.props.filter.updatedFilter));
     }
     handleChange(text, field) {
         if (!this.filter[field]) {
@@ -53,13 +54,11 @@ class Filter extends Component {
             let pulled = [];
             let k = 0;
             for (let datum of this.props.state.state.data) {
-                console.log('datum.destination: ', datum.destination);
                 let format = datum.destination.split(' ');
                 format = format.join('-');
                 format = format.toLowerCase();
                 if (this.state.destination === format) {
                     datum.k = k;
-                    console.log('datum:', datum);
                     pulled.push(datum);
                 }
                 k++;

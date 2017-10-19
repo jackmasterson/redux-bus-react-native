@@ -19,7 +19,7 @@ class Launch extends Component {
         return (
             <View>
                 <TouchableOpacity 
-                    style={{margin: 35}} 
+                    style={{margin: 45}} 
                     onPress={() => 
                         this.handleSubmit(Actions.postInfo)
                     }
@@ -27,7 +27,7 @@ class Launch extends Component {
                     <Text>Post Some Info</Text>
                 </TouchableOpacity>                
                 <TouchableOpacity 
-                    style={{margin: 35}} 
+                    style={{margin: 45}} 
                     onPress={() => 
                         this.handleSubmit(Actions.busStatus)
                     }
