@@ -3,23 +3,14 @@ import { Text, TouchableOpacity, View, ScrollView, Button } from 'react-native';
 import { connect } from 'react-redux';
 import {fetchData} from '../reducers/counter';
 import {Actions} from 'react-native-router-flux';
+import Data from './Data';
 
 const mapStateToProps = (state) => ({
     postInfo: state.counter.data,
     state: {...state},
 });
 
-const Data = (data) => {
-    return (
-        <View style={{marginBottom: 15}}>
-            <Text>Date: {data.date}</Text>
-            <Text>Time: {data.time}</Text>
-            <Text>Destination: {data.destination}</Text>
-            <Text>Location: {data.location}</Text>
-            <Text>Issue: {data.issue}</Text>
-        </View>
-    )
-}
+
 class Status extends Component {
     constructor(props) {
         super(props);
@@ -43,7 +34,6 @@ class Status extends Component {
             );
         } else {
             this.dataFetched = false;
-            console.log('checking this one: ', this.props);
             return (
                 <ScrollView>
                     <Button

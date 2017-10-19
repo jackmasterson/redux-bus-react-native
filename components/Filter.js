@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Picker, Button, View, Text} from 'react-native';
 import {filterChanged, filterSelected} from '../reducers/counter';
 import {connect} from 'react-redux';
+import Data from './Data';
 
 const mapStateToProps = (state) => ({
     state: state.counter.state
@@ -11,11 +12,11 @@ class Filter extends Component {
     componentWillMount() {
         this.filter = {};
         this.setState({
-            location: ''
+            destination: ''
         });
     }
 
-    handlePress() {
+    handleSubmit() {
         this.props.dispatch(filterSelected(this.props.state.updatedFilter));
     }
     handleChange(text, field) {
@@ -26,7 +27,7 @@ class Filter extends Component {
         this.setState({
             [field]: text
         })
-        this.props.dispatch(filterChanged(this.filter));
+        this.props.dispatch(filterChanged(this.filter.destination));
     }
     render() {
         if (!this.props.state.updatedFilter) {
@@ -34,9 +35,9 @@ class Filter extends Component {
                 <View>
                     <Picker
                         style={{ marginBottom: 3 }}
-                        selectedValue={this.state.location}
-                        onValueChange={(itemValue, itemIndex) => this.handleChange(itemValue, 'location')}>
-                        <Picker.Item label="Please select a destination to filter by" value="location" />
+                        selectedValue={this.state.destination}
+                        onValueChange={(itemValue, itemIndex) => this.handleChange(itemValue, 'destination')}>
+                        <Picker.Item label="Please select a destination to filter by" value="destination" />
                         <Picker.Item label="Port Authority" value="port-authority" />
                         <Picker.Item label="Red Bank" value="red-bank" />
                         <Picker.Item label="Monmouth" value="monmouth" />
@@ -45,33 +46,29 @@ class Filter extends Component {
                     </Picker>
                     <Button
                         title="Submit Filter"
-                        onPress={() => this.handlePress()} />
+                        onPress={() => this.handleSubmit()} />
                 </View>
             )
         } else {
-            console.log('this.state: ', this.props);
             let pulled = [];
             let k = 0;
             for (let datum of this.props.state.state.data) {
-                let format = datum.location.split(' ');
+                console.log('datum.destination: ', datum.destination);
+                let format = datum.destination.split(' ');
                 format = format.join('-');
                 format = format.toLowerCase();
-                console.log('format: ', format);
-                if (this.state.location === format) {
+                if (this.state.destination === format) {
                     datum.k = k;
+                    console.log('datum:', datum);
                     pulled.push(datum);
                 }
                 k++;
             }
-            // if (this.state.location === )
+            console.log(pulled);
             return (
                 <View>
                 {pulled.map(info => 
-                    <View key={info.k}>
-                        <Text>{info.date}</Text>
-                        <Text>{info.time}</Text>
-                        <Text>{info.destination}</Text>
-                    </View>
+                    <Data key={info.k} {...info} />
                 )}
                 </View>
             );

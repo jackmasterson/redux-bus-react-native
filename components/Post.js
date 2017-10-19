@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import {PostInfo} from '../containers/PostInfo';
 
 const mapStateToProps = (state) => ({
-    postInfo: this.state.counter.data,
+    postInfo: this.state,
 });
 
 class Post extends Component {
@@ -45,7 +45,8 @@ class Post extends Component {
                 <TextInput
                     onChangeText={(text) => this.handleChange(text, 'time')}
                     style={{ marginBottom: 3 }}
-                    placeholder="Time"></TextInput>
+                    placeholder="Time"
+                    keyboardType="numbers-and-punctuation"></TextInput>
                 <Picker
                     style={{ marginBottom: 3 }}
                     selectedValue={this.state.location}
