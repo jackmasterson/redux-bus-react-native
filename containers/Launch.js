@@ -9,7 +9,7 @@ const mapStateToProps = (state) => ({
 
 class Launch extends Component {
     componentDidMount() {
-    
+        Actions.busStatus();
     }
     handleSubmit(callback) {
         callback();
