@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import {fetchData} from '../reducers/counter'
 
@@ -9,33 +9,41 @@ const mapStateToProps = (state) => ({
 });
 
 const Data = (data) => {
-    console.log('data in Data: ', data);
     return (
-        <Text>{data}</Text>
+        <View style={{marginBottom: 15}}>
+            <Text>Date: {data.date}</Text>
+            <Text>Time: {data.time}</Text>
+            <Text>Destination: {data.destination}</Text>
+            <Text>Location: {data.location}</Text>
+            <Text>Issue: {data.issue}</Text>
+        </View>
     )
 }
 class Status extends Component {
-    handlePress() {
-        console.log(this.state);
-        console.log('postinfo from post: ', this.props.postInfo.counter.data);
-    }
-    componentWillMount() {
+
+    componentDidMount() {
+        this.rendered = true;
         return this.props.fetchData();
     }
-    render() {
-        return (
-            <View>
-                <TouchableOpacity onPress={() => this.handlePress()}>
-                    <Text>Refresh Statuses</Text>
-                    <Text>{this.state.postInfo.destination}</Text>
-                </TouchableOpacity>
+    render(res) {
+        if (!this.rendered) {
+            return (
                 <View>
-                    {/* {this.props.postInfo.counter.data.map((datum) => {
-                        <Data key={datum.id} {...datum}/>
-                    })} */}
+                    <TouchableOpacity onPress={() => this.handlePress()}>
+                        <Text>Refresh Statuses</Text>
+                    </TouchableOpacity>
                 </View>
-            </View>
-        );
+            );
+        } else {
+            return (
+                <ScrollView>
+                    {this.props.postInfo.counter.data.map(datum =>
+                        <Data key={datum.id} {...datum}/>
+                    )}
+                </ScrollView>
+            )
+        }
+
     }
 }
 

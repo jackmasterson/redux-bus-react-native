@@ -1,27 +1,60 @@
 {
   "busData": [
     {
-      "message": "fifteen late",
-      "reportedFrom": "monmouth",
-      "destination": "port-authority",
-      "time": "9:15am",
+      "date": "October 17th",
+      "time": "9:30pm",
+      "location": "Port Authority",
+      "destination": "Monmouth ",
+      "issue": "30 mind late",
       "id": 1
     },
     {
-      "date": "",
-      "time": "Akskfk",
-      "location": "Shamans",
-      "destination": "Anssmsks",
-      "issue": "",
+      "date": "October 17",
+      "time": "9:45pm",
+      "location": "Port Authority",
+      "destination": "Monmouth",
+      "issue": "30 mins late",
       "id": 2
+    },
+    {
+      "date": "October 17",
+      "time": "9:45pm",
+      "location": "Port Authority",
+      "destination": "Red bank",
+      "issue": "45 mins late",
+      "id": 3
+    },
+    {
+      "date": "October 17th",
+      "time": "10:00pm",
+      "location": "Port Authority",
+      "destination": "Red bank",
+      "issue": "60 minutes late",
+      "id": 4
     },
     {
       "date": "",
       "time": "",
       "location": "",
-      "destination": "Zhahshshahahah",
+      "destination": "forked-river",
       "issue": "",
-      "id": 3
+      "id": 5
+    },
+    {
+      "date": "October 18th",
+      "time": "5:50am",
+      "location": "monmouth",
+      "destination": "port-authority",
+      "issue": "",
+      "id": 6
+    },
+    {
+      "date": "October 17th",
+      "time": "5:45pm",
+      "location": "port-authority",
+      "destination": "monmouth",
+      "issue": "Lots of traffic stuck on parkway",
+      "id": 7
     }
   ]
 }
