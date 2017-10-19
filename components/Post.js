@@ -1,9 +1,18 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text, TextInput, Button, Picker } from 'react-native';
+import { 
+    ScrollView, 
+    View, 
+    Text, 
+    TextInput, 
+    Button, 
+    Picker, 
+    DatePickerIOS,
+} from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { submitPost, inputChange } from '../reducers/counter';
 import { connect } from 'react-redux';
 import {PostInfo} from '../containers/PostInfo';
+import moment from 'moment';
 
 const mapStateToProps = (state) => ({
     postInfo: this.state,
@@ -16,7 +25,7 @@ class Post extends Component {
             location: '',
         });
         this.postInfo = this.postInfo || {
-            date: '',
+            date: new Date(),
             time: '',
             location: '',
             destination: '',
@@ -27,10 +36,14 @@ class Post extends Component {
         this.postInfo[field] = text;
         this.setState({
             [field]: text
-        })
+        });
+
         this.props.dispatch(inputChange(this.postInfo));
     }
     handleSubmit() {
+        if (this.postInfo.date) {
+            this.postInfo.date = moment(this.postInfo.date).format('MM/DD/YY');
+        }
         this.props.dispatch(submitPost(this.postInfo));
         // Actions.busStatus();
     }
@@ -38,10 +51,12 @@ class Post extends Component {
         const {dispatch} = this.props;
         return (
             <ScrollView>
-                <TextInput 
-                    onChangeText={(text) => this.handleChange(text, 'date')}
-                    style={{ marginBottom: 15 }} 
-                    placeholder="Date"></TextInput>
+                <Text>Date:</Text>
+                <DatePickerIOS
+                    date={this.postInfo.date} 
+                    onDateChange={(date) => this.handleChange(date, 'date')}
+                    mode="date" 
+                />
                 <TextInput
                     onChangeText={(text) => this.handleChange(text, 'time')}
                     style={{ marginBottom: 3 }}

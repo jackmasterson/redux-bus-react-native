@@ -9,7 +9,7 @@ const mapStateToProps = (state) => ({
 
 class Launch extends Component {
     componentDidMount() {
-        Actions.busStatus();
+        // Actions.busStatus();
     }
     handleSubmit(callback) {
         callback();
@@ -18,10 +18,20 @@ class Launch extends Component {
         const { dispatch } = this.props;
         return (
             <View>
-                <TouchableOpacity onPress={() => this.handleSubmit(Actions.postInfo)}>
+                <TouchableOpacity 
+                    style={{margin: 35}} 
+                    onPress={() => 
+                        this.handleSubmit(Actions.postInfo)
+                    }
+                >
                     <Text>Post Some Info</Text>
                 </TouchableOpacity>                
-                <TouchableOpacity style={{margin: 35}} onPress={() => this.handleSubmit(Actions.busStatus)}>
+                <TouchableOpacity 
+                    style={{margin: 35}} 
+                    onPress={() => 
+                        this.handleSubmit(Actions.busStatus)
+                    }
+                >
                     <Text>Go to statuses</Text>
                 </TouchableOpacity>
             </View>
