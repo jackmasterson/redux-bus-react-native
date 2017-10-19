@@ -7,17 +7,23 @@ const CHANGE_TEXT = 'CHANGE_TEXT';
 const FETCHING_DATA = 'FETCHING_DATA';
 const DATA_ADDED = 'DATA_ADDED';
 const INPUT_CHANGED = 'INPUT_CHANGED';
+const FILTER_CHANGED = 'FILTER_CHANGED';
+const FILTER_SELECTED = 'FILTER_SELECTED';
 
 export default function counter(state = 0, action) {
     switch (action.type) {
         case FETCHING_DATA:
-            return { state, data: action.payload, input: '' };
+            return { state, data: action.payload, input: '', filter: '' };
         case SUBMIT_POST:
-            return { state, postInfo: action.payload, input: '' };
+            return { state, postInfo: action.payload, input: '', filter: '' };
         case DATA_ADDED:
-            return { state, postInfo: action.payload, input: '' };
+            return { state, input: '' };
         case INPUT_CHANGED:
-            return { state, input: state.input + action.payload };    
+            return { state, input: state.input + action.payload, filter: ''};    
+        case FILTER_CHANGED:
+            return { state, updatedFilter: action.payload, filter: '' };    
+        case FILTER_SELECTED:
+            return { state, filter: action.payload };
         default:
             return state;
     }
@@ -26,6 +32,8 @@ export default function counter(state = 0, action) {
 const dataReturned = (data) => ({ type: FETCHING_DATA, payload: data });
 const dataAdded = (val) => ({ type: DATA_ADDED, payload: val });
 const changeInput = (val) => ({ type: INPUT_CHANGED, payload: val });
+const changeFilter = (val) => ({ type: FILTER_CHANGED, payload: val });
+const selectFilter = (val) => ({ type: FILTER_SELECTED, payload: val });
 
 export const fetchData = () => {
     return (dispatch) => {
@@ -45,5 +53,18 @@ export const inputChange = (data) => {
     return (dispatch) => {
         dispatch(changeInput(data.destination));
     }
-}
+};
+
+export const filterChanged = (data) => {
+    return (dispatch) => {
+        dispatch(changeFilter(data.location));
+    }
+};
+
+export const filterSelected = (data) => {
+    console.log('dataaaaaaaaa: ', data);
+    return (dispatch) => {
+        dispatch(selectFilter(data));
+    }
+};
 

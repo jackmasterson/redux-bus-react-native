@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Text, TouchableOpacity, View, ScrollView } from 'react-native';
+import { Text, TouchableOpacity, View, ScrollView, Button } from 'react-native';
 import { connect } from 'react-redux';
-import {fetchData} from '../reducers/counter'
+import {fetchData} from '../reducers/counter';
+import {Actions} from 'react-native-router-flux';
 
 const mapStateToProps = (state) => ({
-    postInfo: state,
-    state: state,
+    postInfo: state.counter.data,
+    state: {...state},
 });
 
 const Data = (data) => {
@@ -20,13 +21,19 @@ const Data = (data) => {
     )
 }
 class Status extends Component {
-
-    componentDidMount() {
-        this.rendered = true;
-        return this.props.fetchData();
+    constructor(props) {
+        super(props);
+        // this.dataFetched = false;
     }
-    render(res) {
-        if (!this.rendered) {
+    componentDidMount() {
+        this.handlePress();
+    }
+    handlePress() {
+        this.props.fetchData();
+        this.dataFetched = true;
+    }
+    render() {
+        if (!this.dataFetched) {
             return (
                 <View>
                     <TouchableOpacity onPress={() => this.handlePress()}>
@@ -35,9 +42,15 @@ class Status extends Component {
                 </View>
             );
         } else {
+            this.dataFetched = false;
+            console.log('checking this one: ', this.props);
             return (
                 <ScrollView>
-                    {this.props.postInfo.counter.data.map(datum =>
+                    <Button
+                        title="Filter by Destination"
+                        onPress={() => Actions.filtered()}
+                    />
+                    {this.props.postInfo.map(datum =>
                         <Data key={datum.id} {...datum}/>
                     )}
                 </ScrollView>

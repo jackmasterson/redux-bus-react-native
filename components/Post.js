@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import {PostInfo} from '../containers/PostInfo';
 
 const mapStateToProps = (state) => ({
-    postInfo: this.state,
+    postInfo: this.state.counter.data,
 });
 
 class Post extends Component {
