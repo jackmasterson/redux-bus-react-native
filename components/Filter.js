@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Picker, Button, View, Text} from 'react-native';
-import {filterChanged, filterSelected} from '../reducers/counter';
+import {filterChanged, filterSelected, resetFilter} from '../reducers/counter';
 import {connect} from 'react-redux';
 import Data from './Data';
 
@@ -11,11 +11,8 @@ const mapStateToProps = (state) => ({
 });
 
 class Filter extends Component {
-    componentWillMount() {
-        this.filter = {};
-        this.setState({
-            destination: ''
-        });
+    componentDidMount() {
+        this.filterShouldExist(false);
     }
 
     handleSubmit() {
@@ -26,8 +23,10 @@ class Filter extends Component {
             this.props.dispatch(filterChanged(text));
         }
     }
+    filterShouldExist(data) {
+        this.props.dispatch(resetFilter(data));
+    }
     render() {
-        console.log('check this HERE: ', this.props.filterSelected);
         if (!this.props.filterSelected) {
             return (
                 <View>
@@ -60,7 +59,6 @@ class Filter extends Component {
                 }
                 k++;
             }
-
             return (
                 <View>
                 {pulled.map(info => 

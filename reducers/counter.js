@@ -9,6 +9,7 @@ const DATA_ADDED = 'DATA_ADDED';
 const INPUT_CHANGED = 'INPUT_CHANGED';
 const FILTER_CHANGED = 'FILTER_CHANGED';
 const FILTER_SELECTED = 'FILTER_SELECTED';
+const FILTER_RESET = 'FILTER_RESET';
 
 export default function counter(state = {}, action) {
     switch (action.type) {
@@ -24,6 +25,8 @@ export default function counter(state = {}, action) {
             return {...state, filter: action.payload };    
         case FILTER_SELECTED:
             return {...state, filterSelected: action.payload };
+        case FILTER_RESET:
+            return {...state, filterSelected: action.payload };
         default:
             return state;
     }
@@ -34,6 +37,7 @@ const dataAdded = (val) => ({ type: DATA_ADDED, payload: val });
 const changeInput = (val) => ({ type: INPUT_CHANGED, payload: val });
 const changeFilter = (val) => ({ type: FILTER_CHANGED, payload: val });
 const selectFilter = (val) => ({ type: FILTER_SELECTED, payload: val });
+const filterReset = (val) => ({ type: FILTER_RESET, payload: val });
 
 export const fetchData = () => {
     return (dispatch) => {
@@ -66,4 +70,10 @@ export const filterSelected = (data) => {
         dispatch(selectFilter(data));
     }
 };
+
+export const resetFilter = (data) => {
+    return (dispatch) => {
+        dispatch(filterReset(data));
+    }
+}
 
