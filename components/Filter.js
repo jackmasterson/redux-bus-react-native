@@ -5,8 +5,9 @@ import {connect} from 'react-redux';
 import Data from './Data';
 
 const mapStateToProps = (state) => ({
-    state: state.counter.state,
-    filter: state.counter
+    filter: state.data.filter,
+    filterSelected: state.data.filterSelected,
+    postInfo: state.data.postInfo,
 });
 
 class Filter extends Component {
@@ -18,25 +19,21 @@ class Filter extends Component {
     }
 
     handleSubmit() {
-        this.props.dispatch(filterSelected(this.props.filter.updatedFilter));
+        this.props.dispatch(filterSelected(true));
     }
     handleChange(text, field) {
-        if (!this.filter[field]) {
-            this.filter[field] = '';
+        if (text !== 'destination') {
+            this.props.dispatch(filterChanged(text));
         }
-        this.filter[field] = text;
-        this.setState({
-            [field]: text
-        })
-        this.props.dispatch(filterChanged(this.filter.destination));
     }
     render() {
-        if (!this.props.state.updatedFilter) {
+        console.log('check this HERE: ', this.props.filterSelected);
+        if (!this.props.filterSelected) {
             return (
                 <View>
                     <Picker
                         style={{ marginBottom: 3 }}
-                        selectedValue={this.state.destination}
+                        selectedValue={this.props.filter}
                         onValueChange={(itemValue, itemIndex) => this.handleChange(itemValue, 'destination')}>
                         <Picker.Item label="Please select a destination to filter by" value="destination" />
                         <Picker.Item label="Port Authority" value="port-authority" />
@@ -53,17 +50,17 @@ class Filter extends Component {
         } else {
             let pulled = [];
             let k = 0;
-            for (let datum of this.props.state.state.data) {
+            for (let datum of this.props.postInfo) {
                 let format = datum.destination.split(' ');
                 format = format.join('-');
                 format = format.toLowerCase();
-                if (this.state.destination === format) {
+                if (this.props.filter === format) {
                     datum.k = k;
                     pulled.push(datum);
                 }
                 k++;
             }
-            console.log(pulled);
+
             return (
                 <View>
                 {pulled.map(info => 

@@ -6,7 +6,7 @@ import {Actions} from 'react-native-router-flux';
 import Data from './Data';
 
 const mapStateToProps = (state) => ({
-    postInfo: state.counter.data,
+    postInfo: state.data.postInfo,
     state: {...state},
 });
 

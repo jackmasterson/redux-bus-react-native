@@ -4,7 +4,7 @@ import {View, TouchableOpacity, Text} from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 const mapStateToProps = (state) => ({
-    counter: state.counter,
+    data: state,
 });
 
 class Launch extends Component {

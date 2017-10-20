@@ -10,20 +10,20 @@ const INPUT_CHANGED = 'INPUT_CHANGED';
 const FILTER_CHANGED = 'FILTER_CHANGED';
 const FILTER_SELECTED = 'FILTER_SELECTED';
 
-export default function counter(state = 0, action) {
+export default function counter(state = {}, action) {
     switch (action.type) {
         case FETCHING_DATA:
-            return { state, data: action.payload, input: '', filter: '' };
+            return {...state, postInfo: action.payload };
         case SUBMIT_POST:
-            return { state, postInfo: action.payload, input: '', filter: '' };
+            return {...state, postInfo: action.payload };
         case DATA_ADDED:
-            return { state, input: '' };
+            return {...state, input: '' };
         case INPUT_CHANGED:
-            return { state, input: state.input + action.payload, filter: ''};    
+            return {...state, input: state.input + action.payload};    
         case FILTER_CHANGED:
-            return { state, updatedFilter: action.payload, filter: '' };    
+            return {...state, filter: action.payload };    
         case FILTER_SELECTED:
-            return { state, filter: action.payload };
+            return {...state, filterSelected: action.payload };
         default:
             return state;
     }
@@ -62,7 +62,6 @@ export const filterChanged = (data) => {
 };
 
 export const filterSelected = (data) => {
-    console.log('dataaaaaaaaa issue: ', data);
     return (dispatch) => {
         dispatch(selectFilter(data));
     }
