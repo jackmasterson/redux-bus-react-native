@@ -15,47 +15,20 @@ import {PostInfo} from '../containers/PostInfo';
 import moment from 'moment';
 
 const mapStateToProps = (state) => ({
-    postInfo: this.state,
+    postInfo: state.data.postInfo,
 });
 
 class Post extends Component {
-    componentWillMount() {
-        this.setState({
-            destination: '',
-            location: '',
-        });
-        this.postInfo = this.postInfo || {
-            date: new Date(),
-            time: '',
-            location: '',
-            destination: '',
-            issue: ''
-        }
-    }
     handleChange(text, field) {
-        this.postInfo[field] = text;
-        this.setState({
-            [field]: text
-        });
-
-        this.props.dispatch(inputChange(this.postInfo));
+        this.props.dispatch(inputChange(text, field));
     }
     handleSubmit() {
-        if (this.postInfo.date) {
-            this.postInfo.date = moment(this.postInfo.date).format('MM/DD/YY');
-        }
-        this.props.dispatch(submitPost(this.postInfo));
+        this.props.dispatch(submitPost(this.props.postInfo));
     }
     render() {
-        const {dispatch} = this.props;
+
         return (
             <ScrollView>
-                <Text>Date:</Text>
-                <DatePickerIOS
-                    date={this.postInfo.date} 
-                    onDateChange={(date) => this.handleChange(date, 'date')}
-                    mode="date" 
-                />
                 <TextInput
                     onChangeText={(text) => this.handleChange(text, 'time')}
                     style={{ marginBottom: 3 }}
@@ -63,7 +36,7 @@ class Post extends Component {
                     keyboardType="numbers-and-punctuation"></TextInput>
                 <Picker
                     style={{ marginBottom: 3 }}
-                    selectedValue={this.state.location}
+                    selectedValue={this.props.postInfo.location}
                     onValueChange={(itemValue, itemIndex) => this.handleChange(itemValue, 'location')}>
                     <Picker.Item label="Please select an origin location" value="location" />
                     <Picker.Item label="Port Authority" value="port-authority" />
@@ -74,7 +47,7 @@ class Post extends Component {
                 </Picker>
                 <Picker
                     style={{ marginBottom: 3 }}
-                    selectedValue={this.state.destination}
+                    selectedValue={this.props.postInfo.destination}
                     onValueChange={(itemValue, itemIndex) => this.handleChange(itemValue, 'destination')}>
                     <Picker.Item label="Please select a destination" value="destination" />
                     <Picker.Item label="Port Authority" value="port-authority" />

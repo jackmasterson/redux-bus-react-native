@@ -49,13 +49,16 @@ class Filter extends Component {
         } else {
             let pulled = [];
             let k = 0;
+            console.log('this.props.postInfo: ', this.props.postInfo);
             for (let datum of this.props.postInfo) {
-                let format = datum.destination.split(' ');
-                format = format.join('-');
-                format = format.toLowerCase();
-                if (this.props.filter === format) {
-                    datum.k = k;
-                    pulled.push(datum);
+                if (datum.destination) {
+                    let format = datum.destination.split(' ');
+                    format = format.join('-');
+                    format = format.toLowerCase();
+                    if (this.props.filter === format) {
+                        datum.k = k;
+                        pulled.push(datum);
+                    }
                 }
                 k++;
             }
